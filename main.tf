@@ -9,16 +9,17 @@ terraform {
 locals {
   organization_name = "qeuzjiq"
   account_name      = "oza27213"
-  private_key_path  = "snowflake_tf_snow_key.p8"
+  private_key_path  = "snowflake_tf_key_final.pem"
 }
 
 provider "snowflake" {
-    organization_name = local.organization_name
-    account_name      = local.account_name
-    user              = "TERRAFORM_SVC"
-    role              = "SYSADMIN"
-    authenticator     = "SNOWFLAKE_JWT"
-    private_key       = file(local.private_key_path)
+  organization_name = local.organization_name
+  account_name      = local.account_name
+  user              = "TERRAFORM_SVC"
+  role              = "SYSADMIN"
+  authenticator     = "SNOWFLAKE_JWT"
+  # La línea private_key se ha eliminado.
+  # El proveedor la encontrará automáticamente en la variable de entorno.
 }
 
 resource "snowflake_database" "tf_db" {
